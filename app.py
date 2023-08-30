@@ -1,15 +1,14 @@
-import json
 import flask
 from flask import request, jsonify,g
 import  logging
 import time
 from datetime import datetime
+from processRequest import processRequest
 
 
 app = flask.Flask(__name__)
-#app.config["DEBUG"] = True
 
-logging.basicConfig(filename=r"C:\Users\ealihks\Desktop\Projects\logs\\" + str((datetime.now()).strftime("%Y%m%d%H")) + ".log", filemode='a+')
+logging.basicConfig(filename=r"C:\Users\shiva\Desktop\Python Projects\FlaskProject\logs\\" + str((datetime.now()).strftime("%Y%m%d%H")) + ".log", filemode='a+')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
@@ -64,25 +63,6 @@ def Unified():
     #print('in function')
     resp=processRequest(request)
     return jsonify(resp)
-  
 
-def shutdown_server():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
-
-@app.route('/shutdown', methods=['GET'])
-def shutdown():
-    shutdown_server()
-    return 'Server shutting down...'
-
-
-# if __name__ == "__ main__":
-#     app.run()
-
-#local
-#app.run()
-
-#live
-app.run(host='127.0.0.1', port=5000,threaded=True)
+    
+app.run(host='127.0.0.1', port=80,threaded=True)
